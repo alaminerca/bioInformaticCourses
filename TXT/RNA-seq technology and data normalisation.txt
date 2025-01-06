@@ -1,0 +1,57 @@
+In this video lecture will be
+briefly touched on the basics of RNA-seq technology. This is a very extensive topic, and it deserves a dedicated course
+to be properly explored. So we will describe only what we need
+in order to continue the course, and sometimes the explanations that we
+will provide will be intuitive. There is plenty of material available for
+you to explore, and we will include some references
+to it in the additional material. RNA-seq consists of several steps,
+some of them conducted in the witlab and some of them in silica,
+by silica we mean the data analysis. In the wit lab part biological
+sample is processed in order to extract the messenger
+RNA from the cells. This RNA is then prepared in libraries, which means segmenting the RNA
+molecules into smaller fragments, and these fragments they're
+process with a sequence that in order to get the nucleotides
+of each one of these sequences. As a result from a given
+sample we can get millions of short nucleotide sequences
+that we will call reeds. Finally, because we expect those
+reeds to be transcriptome, we expect them to be possibly
+mapped to the genome. And through this mapping what
+we do is to reach the final aim, which is quantifying how many reeds
+belongs to each one of the genes. Through this process, as the outcome
+we will produce a numerical vector for each biological sample. This vector contains the number
+of reeds to each gene. This quantification represents our
+estimate of the level of expression to that specific gene. But it is important to note that
+RNA-seq data will always be composed by integral values
+before further pre-processing. So we have basically count data. Also, it's important to notice
+that the dimensionality of RNA-seq data is huge in the order
+of tens of thousands of genes, and the values are quite sparse,
+meaning that high proportion of genes may have
+serial expression level. When multiple biological
+samples are sequenced, RNA-seq data can be comfortably
+represented as a matrix, usually with genes, the raws,
+and samples in the columns. One key factor to consider before
+starting any analysis is to address the sequence in depth, which means
+the total amount of reeds collected for each one of the examples. Deeper sequencing means that a higher
+number of reeds is available for characterizing the level of
+expression of each one of the genes. Unfortunately, sequencing depth is
+often different across samples, and this means that raw counts
+are usually not comparable. If we take a look to this example,
+we just can look into the second gene and observe different number
+of rates per example. We can look into the third sample and we observe a larger number of
+rates compared to the rest. But before having any conclusions, we will need to compare those
+numbers with the sequencing depth. So what I'm saying is in order
+to solve this challenge, the data needs to be normalized. The basic normalization process
+involves computing the library size for example, which corresponds to
+the total number of fritz, and then the normalized row counts
+are computed by dividing each value for each gene by the total library
+size associated to the sample. Because the resulting
+values can be very small, usually they are multiplied
+by a large scale factor. So this is the resulting matrix
+after normalization in expression, values are now comparable
+across the different samples. Very important, this is
+the simplest type of normalization. However, more sophisticated
+approaches do exist. Those approaches are required for
+proper statistical analysis, and this is why we will be using
+them in our coding lecture. The next recording session lesson
+will focus on how to load and pre process RNA-seq count
+matrixes in [INAUDIBLE]. Let's go for it.

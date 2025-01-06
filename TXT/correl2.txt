@@ -1,0 +1,78 @@
+In the previous video lecture we were describing what
+is correlation. In reality we describe
+something beyond that. We want to quantify the similarity
+between variables or how one variable is
+related to other. The first thing that
+we did was to try to quantify such similarity
+between variables. For quantifying them of course the first thing is we
+need to read the data. We explore it always good. Always having new tools
+to explore this data. This is similar to
+head but instead of this is showing
+the first six rows, it's showing for each one of the columns some of the values. It's very important as we review the extractive
+data analysis to have an exploration of the
+data where we can see that hours of sun and
+LDL seems to be related, higher values of hours
+of sun seems to to be related to higher values of LDL. However, we would like to explore this,
+statistically speaking. How we quantify a
+relationship we investigated before in the video
+lecture, the covariance. We can compute this covariance
+manually, showing here. Of course, we are comparing for each patient the values of hours of sun versus the
+mean of hours of sun, and the values of LDL
+versus the mean of LDL, and by doing this
+for every one of the patients, we get this value. A positive value tells us that if there is
+any relationship, it seems to be positive. Higher values of one, higher values of the other. However, we don't know, we cannot interpret this value because it depends on the scale. We already have a function within R to compute
+the covariance, which is a cov function, and you can see we get
+exactly the same results. Because covariance is
+hard to interpret, we may use of the correlation. If you remember, for
+the correlation, basically we are
+computing the covariance and dividing the covariance that we computed by the
+multiplication of the standard deviation of each
+one of the two variables. We compute these, we
+compute this and we get these value of
+the correlation. In this case, what we call
+the Pearson correlation. Pearson correlation goes
+from minus one to one. Minus is a perfect
+invests relationship. One is a perfect
+positive relationship , linear positive relationship. While zero means there is no
+relationship between them. Of course, there is built-in functions for computing
+correlations like cor, and you can see the value here is the same one as we
+were showing before. But computing the
+correlation is not enough. We want to address if this correlation is
+statistically significant. For doing that, we can compute the cor
+test, and of course, we are doing a t-test with
+98 degrees of freedom, and then we observe
+this p-value. For interpreting the p-value, we require to know what
+is the null hypothesis. The null hypothesis is, true correlation is 0. Alternative hypothesis is that true correlation
+is not equal to 0. With this p-value, if we consider a
+threshold of 0.01, we can reject the null
+hypothesis and we will work under the assumption of the alternative hypothesis. That means that this value of the correlation seems to be relevant but is also
+statistically significant. Of course, here, the null hypothesis is that
+the correlation equals 0. We can work with all
+the null-hypothesis. Like the null hypothesis is that the correlation
+is less than 0. If we run that with
+alternative greater, we can see that we
+can also compute it, and we can observe
+that the p-value, it's even slightly smaller, so we get a larger
+confidence for saying that these relations is to be statistically significant. We have computed
+the correlation. But one important aspect to
+compute the correlation, we need to make sure of the assumptions for
+computing the correlation. What are those assumptions? First of all, we expect
+the two variables that we're comparing to be
+Gaussian normally distributed. For computing that, we
+can do a Shapiro test, we can see a p-value. The Shapiro test is the null hypothesis is our
+distribution is Gaussian. With these value, we do
+not create Gaussianity, so we will work under the assumption that the
+hours of sun is Gaussian. We do the same for the
+Shapiro test for the LDL, and here we have a problem
+because with this p-value, we may reject the
+hypothesis that the LDL, it's
+Gaussian distributed. If that's the case, then the assumptions for computing Pearson correlation
+are not fulfilled, and we should maybe
+think of alternatives. Alternatives are
+non-parametric correlation, when we are using the ranking inside of the original value, we can do the Spearman
+correlation and we observe that for the
+Spearman correlation, we also get a p-value
+that is extremely small, quite small, and therefore we are able to reject
+the null hypothesis, and we will work under
+the assumption that the two variables are
+statistically correlated.

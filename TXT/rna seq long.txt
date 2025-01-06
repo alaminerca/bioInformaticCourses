@@ -1,0 +1,215 @@
+Welcome to the first
+coding lecture in this fourth module. In this coding lecture, we are going to talk about bulk RNA-seq and
+how to analyze it. In reality, this is
+three coding lectures all into one about how
+to analyze RNA-seq data. This is the first part where we will be talking
+about loading data, generating a specific dataset, transforming the data,
+checking library size. A second lecture will
+be about bits by component analysis and
+visualization of the RNA-seq data. Lecture 3, we will talk about differential
+expression analysis. You have an overview of
+what we're going to do in the bulk RNA-seq in different video lectures
+and coding lectures. In addition, you will have an exercise that you will have
+to conduct by yourselves. First of all, before we start, I want to show you something. We have this RMarkdown which includes all the
+information, everything. What I would like
+you to know or to do is basically an option. You can run everything at
+once. Why I'm doing that? I want to show you that
+basically you will be able to run the entire code all the
+plots are being generated, all the outcomes
+are bringing store. Then we will be using these pre-computed outcomes
+through the lecture. Well, when you are
+doing analysis, this is not how
+things are working. You do one step, you double check, you go to the next step, you double-check. But sometimes once you have
+finished and you save it, you save for code and then you
+realize you need to modify something in the entire pipeline
+right at the beginning. Then you are quite certain
+about your code so you may want to modify this small part and rerun
+everything at once. This is one of the
+fantastic uses of having our code organized,
+structure, annotated, etc. Let's go to the first part. We want to load the data. Before we load the data, you should be aware we are
+going to use two libraries, DESeq2 and a second one, vsn. You will see why. But before, you may not have those libraries installed
+in your computer. Those libraries are not part
+of the CRAN environment. They are part of
+the Bioconductor, which is a repository targeting bioinformaticians and
+bioinformatic users. If you want to install, you can go Google DESeq2, you will see the page we can buy a conductor and
+basically you will identify all these instructions. This is basically telling you if you don't have BiocManager, go and install it. Once you have Bioconductor
+manager installed, you can directly install the
+packages using this manager. If you don't have it. Basically, you can come here, run this part, making sure
+you have it installed. If not and if it is installed,
+you don't need to do that. Remember, installing is
+something that you do only once or every time there
+is an update in R or an update in Bioconductor. But you install this into your system and you need then to load it like
+running this code, you make sure the
+package is locked. Now we're going to talk
+about loading the data. Loading the data means
+we are going to read it. We are starting with count data. Remember in the video lecture, we have this RNA messenger, it's splitted into
+small sections of RNA that we are sequencing. Those small sequences of RNA
+are mapped into the genome. These map into the genome is processed in a way
+that for every gene, we will have how
+many counts were mapped to the gene,
+something like this. You can see that for every one of the samples,
+in this case, four as an example, this is because we are
+selecting to show a bit of it, we have the raw names
+which are the genes, and the column names which are the samples and the number
+of flights that were mapped to those gene for
+each one of the samples. This is the raw data in this part of the bioinformatic
+analysis, mapping, and all the aspects of mapping and quality
+control of the raw data, it's something that you
+need to learn and you will be learning in future
+bioinformatic courses. Then we have the
+data, but of course, equally important to the data is to know what are
+the samples about. What is the metadata
+of the samples? We are talking about
+diseases, who are healthy, water disease
+samples, age, gender, all the Meta information
+that is important. We can load this. You can see here we
+are reading a table. We're saying the separator
+is a calculator and we have these phenotype
+information where we have again the samples. Then we have information about the cell type
+cytokine condition, stimulation time, all the
+considerations of the design. On one hand, we are loading
+the transcriptomic data, on the other hand, we are loading the metadata. Now the next step is actually bring or try to make sure that we have
+everything together. You can see that here
+we're making sure that the real names of
+these phenotypic matrix, the metadata has the
+identities that sample names. This will help us when we want
+to compare these metadata DataFrame to the expression DataFrame or expression matrix. It's very important to
+have sanity checks. We're having
+something like here. We have the sample
+names here but we also have the sample names
+in the expression data. We would like to make
+sure those are the same so we can compare if the raw names in the phenotypic
+matrix are also the same, and in the same order
+as the colnames in the expression matrix and the answer is
+true fantastic. We know that we have all the phenotypic
+metadata information for all the samples and all the
+transcriptomic information for all the samples. Now, for the sake
+of this analysis, we are going to not
+work with everything, but we are going
+to limit our data to a stimulation
+time of five days to conditions Th2 at Th0
+and we're going to work about the CD4 memory cells. There are many more conditions and there are more samples, but we are going
+to work with that for the sake of the example. I highly recommend
+that you go back to this example and try by
+yourself with different ones. This is where we are
+selecting we are selecting the samples that has a stimulation
+time that we selected, steam time of five days, that the cytokine condition are in conditions and the
+conditions are Th2 at Th 0, you can see that this is the
+values here has to be in this vector and the cell
+type has to be CD4 memory. Once we have prepared our selection backdoor
+then we apply it to the metadata phenotypic matrix and to the gene
+expression matrix, so once we have these, we will make sure that we
+create our DC2 object. An object will contain
+both the expression, the metadata, and any type of information that is
+interesting for us. See here, we have
+the count data. The gene expression.
+We will have the phenotypic matrix
+will limit our data. We also have the design. The question that will be
+important for us to compare. In this case, we would like
+to compare in the five days after stimulation time
+within the CD4 memory cells, the difference
+between Th2 and Th0. We have created all
+this information. Fantastic. Now, one important thing
+here is that we have, as you can see here, many genes that maybe
+have no expression. Some genes that has
+a lot of expression, and some genes has certain level of
+expression for some genes and limited for others. Some of them are expressed. In this case, it's 0, 0, 0, and 3 rates. When we do differential
+expression, we need to make sure that
+we have enough rates for properly conducting the
+statistical analysis, the differential expression. For genes were very
+low amount of rates, this will not be possible
+or not accurate, so we want to filter them. There are different rules. Like in this case, where we want to make
+sure that it has at least 10 rates
+for all the samples. Or you have x number of rates
+for x number of samples. We will put you in the
+additional material, several papers referring
+to several strategies. One of them is you want to make sure what is the group
+of the minimum size. In this case, for instance, we have two groups, Th2 and Th0. Let's think we have five samples here and
+five samples here. You want to have at
+least one count per million in the number of samples equivalent
+to the minimum size. Let's say five in this case. This is another criteria
+that you could use. Explore criterias. This is something that is
+good for you to experiment. What happens if I change
+this to 20 or these to 100s? Or instead of using
+the accounts, I use the counts per million. Check the video
+lecture if you don't know what is the
+count per million. This is going to be
+extremely important. You can see the outcome is
+more than 26,000 genes. But this is much smaller than
+in the original dataset, which included many more genes, which you can see
+here was 58,000. Now we have created the object. We might have filter
+part of the object. You can see this the
+ones that we are keeping and this is
+the ones that we make sure that we are applying this vector into
+the DESeq object. The argument that
+we are using here, it's basically we are summing the rates for all the samples
+for every one of the genes. For every one of the genes, we are summing all
+the rates available. We're saying, well, we
+want to make sure that you have at least 10 rates.
+Where do you do this? This is not a very conservative
+criteria and that's why it's important for
+you to double-check and explain a bit deeper. Now, the next thing
+that we may want to do is actually
+investigate the data. You can see here we
+want to transform, we want to compute here. We were starting to see this
+is the mean for the genes, and this is a standard
+deviation for the genes when you work over the
+entire set of samples. You observe that for
+highly expressed genes, the standard deviation
+is not that much. Then you have some
+genes where you have medium level of expression, but a lot of standard deviation. The standard deviation is not homogeneous for the different
+values of expression. This is important. This is why we need to work with variance stabilizing
+transformations. You have here some references. We will include
+more information. This is one of them. Of course, you can think like
+after this transformation, this is the transformation, but I highly recommend
+you look into it deeper. In this case we are just using the log transformation
+as an example. We can see that the variance, the standard deviation varies not as much as we had before, but actually for larger
+expressed values you have a larger amount
+of standard deviation. This is an effect of
+the transformation. There are different
+criterias for doing this transformation
+during this preprocessing. At the end of the day, one of the things that we
+want to make sure is to account for the different
+on the sequencing depth. This is another
+important aspect, and this is where we're
+going to talk here about normalization. When we have different libraries for every one of the samples, if you go to the video lecture, you should remember that
+the number of reads that we get in each one of the
+libraries may be different, and it's not the same to compute the number of
+reads when you have 20 million reads than when
+you have 10 million reads. Of course, we could compare
+counts per million, how many reads you
+have per million. This will make things
+a bit more comparable. It's still not enough because these will be extremely
+sensitive to outliers. Imagine one or two genes
+get massively expressed or because whatever
+biological real argument, but these will affect the counts per million
+transformation. You may want, instead of that, identify in those
+genes that are quite stable for all the samples
+that remain more or less, not going too high or
+not going too low, but they remain more or less in the average values
+for all the samples. Using them as your reference, you then use this
+as a reference plus the sequence in
+depth in order to make the samples a
+bit more comparable. Intuitively, you
+need to go deeper about how it works to
+estimate the size factors. This estimation of a size
+factor is actually saying, this is how I'm going to modify the final reads in order to make all the counts that I'm
+getting more comparable. When you have modified that
+and you can see here a bit of the order of
+the size factor or how if I modifies for
+the different samples, you will be working with what
+we call as pseudo counts. Guess for you before
+I stop this section. Important aspect
+of this lecture is that we have loaded data, expression data,
+and the metadata. We organize it. We make sure that the names of the samples are both in the
+metadata and expression data. We have quality controls to make sure that the
+samples are the same in both of the matrices. We have made more selection for the ones that we are interested. Then we create the DESeq2
+object with the data, the metadata, and even
+our question of interest. Then we filter for very
+low expressed genes, and then we investigate what transformations
+are required. Like if we have the count data and we compare variability
+versus standard, the expression versus
+the standard deviation. If we look transform the data, and then this will also lead us to have
+some transformation, in this case the
+generation of [inaudible]. With this, I stop here, go to the next video lecture before we go into the
+explorative analysis.

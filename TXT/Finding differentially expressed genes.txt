@@ -1,0 +1,32 @@
+Welcome to the lecture. In this lecture, we will discuss differential expression
+analysis in RNA-seq data. Let us consider the
+most simple example. We have one gene
+and two conditions. To compare average
+across groups, we already discussed this
+in the second module and one of the key assumption
+is that to run the t-test, we should be working with
+normally distributed data. Unfortunately, RNA-seq data
+violates such assumption. First, because the data is measuring counts,
+integral values. Second, because the shape of the distribution is
+definitely not Gaussian. Over the years, researchers
+have understood that another probability
+distribution approximate these data better, the
+negative binomial. Once we have decided to use the negative binomial
+distribution for representing RNA-seq count data, it is possible to assess whether a gene is differentially expressed between
+the two groups. In order to do so, it is necessary to estimate two parameters that dictate the shape of the distribution. The two parameters are one associated to the
+average number of counts and the other one associated to the over dispersion parameter alpha. The later connects
+the average number of counts with it variance. The closer the alpha
+value is to zero, the closer the variance
+is equal to the average. Estimating these two parameters is conceptually similar to estimating the mean and standard deviation for
+normally distributed data. Fortunately, estimating
+alpha is not trivial when we are working with low sample size or with
+genes with low expression. See for instance, the
+relationship between counts average and alpha in the T-cell dataset that
+we are working with. The most extreme alpha
+values are circled in red, and they may just be an artifact due to
+a poor estimation. A possible solution is to shrink variances and over
+dispersion parameters that appear to be outliers. Different R packages implement different approaches
+for this problem. Here, the most
+common packages for the analysis of RNA-seq
+data will be used. Now, what we are going to do is explore them in the
+next coming lesson.

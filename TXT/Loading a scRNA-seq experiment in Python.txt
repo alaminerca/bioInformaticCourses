@@ -1,0 +1,119 @@
+Welcome to a new video coding lecture,
+in this one, we are going to start talking
+about single cell rna seq data. And why we explain it in
+the video lecture and we already explained it also
+the annotated data format, we want to have a practical
+section on that, right? So what is annotated data? Annotated data is a python package. You remember we have been using
+numpy we have been using pandas. Numpy has been oriented
+to have race vector etc. Pandas allow us to work
+with data frames and annotated data has been prepared
+to keep both in expression values. All the meta data, but
+also all the efforts that we do when we are analyzing single cell rna seq
+data like cell type annotation etc. So the first step will be of
+course importing the packages we have them and
+then we are going to load the data. This is a file and remember I'm loading,
+I'm reading this file, and I'm reading this file without
+any path description because I'm considering that this file is
+within my working environment, right? It's important for you to consider,
+you have to be aware or what is the working directory
+you are working at. And if the files are located within it or
+if you have to give the full path. The second aspect is you
+have an extension here, H5 AD which is a way to compress and store data is definitely one
+of the best ones that has been that is being used for
+single cell very fast. And but there are other formats,
+let's work with that. And the first step is we read
+this data and then it creates and undertake the data object that
+includes a lot of information, right? And we have number of observations and
+the number of variables. Okay, each profile it's composed of a number of genes, right? Or variables you know
+vector data terminology and then we also have observations which
+includes cell type, cytokine etc. So what I'm trying to say is we
+have different type of elements. We have expression data,
+and we have the meta data. If we look into the expression
+data basically we have the genes as I was saying before and
+the cells. It's not showing us it that much
+here it's a lot of values as you can imagine when you compare, but
+we know it is a store there and we will see later how to access
+even say that or even observe it. If we want for instance to observe
+the most expressed ones well, here this is important for
+for you to look into. We are getting the expression
+data we are sorting it by most expressed to low express. We are flipping it so
+we have the higher express on the top and we are saying show us
+the first time once from zero position zero to position nine, okay? So we have expression data we start to
+see how to access part of this data. This is for you more to get confident
+into this data type, data structure. And we also have
+the observation data frame. And in that observation data frame for
+every one of the cells we have plenty of information like the cell type,
+cytokine condition, donor, badge, etc. Some of it it's arrived
+from the data generation. Some other aspects like the cell type,
+it's maybe related to the notation, and also a percentage of mitochondrial. It's after the mapping you have
+quantified how many rates are getting into the mitochondrial. So there are different amount of values
+here that are either defined by design. Some others are defined
+based on the annotation and the additional analysis that
+we are doing in the data. And one thing is to have
+it clear what it is inside. The other thing is to be
+a bit more comfortable about manipulating this subject and
+annotating data object. So one of the things that we
+are going to do is basically using this data frame to
+work with a naive T cells. You remember what we selected in the bulk,
+you remember how we're trying to align everything part of
+the data that we are using here? So we run this and basically we are saying
+look, within the data frame and the column cell type,
+check the ones that are naive. So this will be an identification or
+true or false, and then filter the entire data object,
+annotated data object for those IDs that were called naive. Because this will be the ones
+that have in the truth. So now we are having another data object,
+right? Or the same data object
+modify where we have the same number of genes but
+fewer amount of cells, correct? So the number of
+observations are the cells, the number of variables in
+this case are the genes. How many rows do we have
+now in the observation? Well, we can look at them and as expected
+the number of columns took is the same. But the number of rows should be
+modified to the same number of cells that we have selected before. When we were doing this we run it
+here we were active selecting for the IDs that were having the notation
+of naive in the cell type column. We could also check about okay,
+how many reads do we have? But how many reads we have now that
+we have already filtered our data. So we are accessing the data frame that
+we already filter with the expression, remember the six. And then we are summing up so
+let's see what we get. And this is what we
+are getting as a result, right? Summing up for every one of the cells,
+how many results we get. We can also create data frame and
+basically what we are getting here is a number of reads per
+gene that we are getting. Why is this important? Because we are working with 20,153 genes. But because also we have
+filtered some of the cells, it may happen that for
+some of the genes we don't have reads, and if that's the case,
+we may not want to work with them anymore. So that will help us identify elements at
+the gene level that we want to take out. If we show now we have a new
+object which we were showing already before that has
+that number of genes and that number of cells, and
+this is the dimensions for the matrix of the gene expression. And in addition we have the matrix for
+the meta data. So we have go, we went through what is annotated data. What is this data structure,
+important the package loading the data. Starting to look what is in the data. We have been able to modify slightly
+the data, and of course we would like also to do additional things like
+what we have free time elements. Maybe we want to write it, and
+this is what we are going to do here. We are going to first import
+a new package which is helping us to operate within the folders, we are going to ask,
+is a path existing open data. If it does do nothing,
+if not exist, then create the path. And once we are sure the path is created, we are going to save the annotated
+data variable that we created only with naive cells as a new
+file that contains only the naive cells. So let's run these, and
+then we can see that within the new directory we have a file
+that we aiming to create. As before we created it with this format,
+H5 AD, okay? This is definitely very good for
+reading and writing in terms of speed and
+especially for very large files. But if you want to have CSB file,
+comma separated values file, you can do also like that and
+you can see we could create it like this, and then we list the files in our folder. Now we have also the files about CSB, right? The observations, the variables, the different data types that will
+complete these annotated data structure. Because in this data structure is
+not just a matrix of the linear expression versus the samples or
+versus the cells in this case. It's also meta data,
+matrix associated information, so all these will be written as CSB files
+that you can access and look into. So what I would recommend
+you before you go next and before you go to the exercise is redo
+this, pause the video when you need. Make sure you are able to
+understand every one of the steps, play a bit with the different parameters,
+but also investigate the outcomes. Investigate the CSB files that were
+generated here to see it's really are showing you the information that
+you are expecting to have here. Remember these names here,
+we discussed them in the video lecture. So if you don't remember them,
+take a look.

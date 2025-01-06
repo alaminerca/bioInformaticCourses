@@ -1,0 +1,39 @@
+Welcome to the video lecture. Until now, we have learned
+how to import data, single-cell RNA seq
+data in Python, how to pre-process the data, and how to visualize
+the data using umap. It is not the time to work in identifying the cell subtypes contained in our single-cell
+RNA seq dataset. Cell type or cell
+subtype identification broadly requires three steps. Clustering the cells, identifying certain genes that are highly expressed
+in each cluster, what we call the markers, and then comparing
+those markers with the known ones for the different
+cell types in our study, compare the markers with what is known in the
+state of the art. Again, like always, there is
+no measure that fits all. Adjustment of this workflow will be always necessary depending
+on the data at hand. If we go to the first
+step, the clustering. In principle, any sound
+clustering algorithm can be used for finding the
+right partition among cells. But in practice, some algorithms are
+becoming the standard, like the later algorithms
+for clustering. Regardless of what
+algorithm is used, the end results should provide a clear partition
+among the cells. If we go to the second step, once we have defined our cluster, the
+marker identification. It consists in finding the
+genes that are differentially expressed between each cluster and all the other clusters. For instance, for the cluster 1, this will mean contrasting
+the expression of the cells within this
+cluster to the rest of one. The differential
+expression analysis of the cluster 1 against
+every other cells, identify three genes
+as possible markers. It will be now time to
+find if those are working. When we compare those markers with what is known
+in the literature, we identify that the PASK gene is very specific marker
+of central memory cells. Being highly expressed
+in cluster 1, we may conclude that
+cluster 1 is indeed composed of central
+memory T cells. However, cell type
+identification, it's rarely that simple. More often there is some
+conflicted information. For instance, the presence
+in the same cluster of two known markers each of them is specific for
+its own cell type. How to solve these problems? There is no immediate answer, but we can practice in
+the next coding lesson that will try to
+make you ready for real case and additional
+real cases scenarios.

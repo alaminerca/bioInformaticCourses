@@ -1,0 +1,132 @@
+Welcome to a new
+video coding lecture. In the previous one, we were exploring
+how to load data, single-cell data into the
+annotated data package. Now, we are going to talk about how to
+preprocess the data. The single-cell RNA seq. Some of the things or the
+steps that we're going to look may remind you what
+we did in bulk RNA seq. But it's not
+necessarily all of them the same missteps and
+there are things to be taken with a different approach. We are going to use
+the scanpy package. The first thing that
+we're going to do is basically load in the packages. If you remember, we
+are importing them. Numpy, which was used
+for working with array, vector or matrices, pandas, which is a package it has to
+work with data frames. Then scanpy was
+package developed specifically for
+single-cell RNA seq data. We have this part
+of the code here, which will read the data, read from this file, which is this h5ad format that is optimized
+for large data sets. We run this. Basically it's telling us that, well, it took a bit
+longer than we expected, you can see that
+it reads the data. Remember before we have more
+than almost 21,000 genes. In this case we
+have 5,000 cells. Why? Because maybe this is
+the data set that we have a pre-filter based on the cells that were
+classified as knife. Now we are going to talk
+about quality control. As you can imagine,
+if you remember, basically we have
+a big matrix where the rows are the cells and
+the columns are the genes. But it may happen that for some cells we don't get
+that much expression. Or for some genes we don't
+get that much expression. We're going to filter cells that has not many rates or not
+many genes expressed, and we're going to
+filter genes that appear in very few
+amount of cells. What are we going to do here? We're going to filter
+cells where we are expecting to have expression
+in at least, 200 genes. With that and basically you can observe that
+we have no filter, any one of the cells. Now let's filter genes. And we want to have
+genes that has been expressed in at
+least three cells. We run this and what we observe is that now we are filtering
+quite a number of genes. We are also going to create
+some of the quality controls, which is about the level or the amount of reads that goes
+into mitochondrial genes, or the amount of reads that
+goes into ribosomal genes, or even if you are working
+with certain types of cells, you may want to look into immunoglobulin genes, et cetera. Let's go with one
+example, mitochondria. We will be assuming that all the mitochondria genes
+starts with the name md. We're going to look
+for the expression of those genes that are
+having these md. Then we are going
+to work on what is the percentage for every one of their cells of those rates
+in comparison to the total. We run this, we compute it, and now we want to plot
+it. Let's see the plot. We are going to evaluate the dataset based
+on these plots, n-genes by count, total counts, and maybe the percentage of counts that goes into
+the mitochondria. The first one is
+talking about or is telling us about how many genes are expressed in each cell. You can see that in each cell, at least, a medium 1,000
+genes is not that many. But for some cells there is quite a number of
+genes expressed. We are also going to talk about the total number of
+reads in every cell. You can see that for some cells we have quite a large
+number of reads. These may be a quality control that we want to
+take into account. We filter for cells with
+very few number of reads, but what happens with the
+cells with too many reads, it may happen that
+we have a doublet. A doublet means
+that we are working with the next genomic
+single-cell data, which is droplet base. That means in a droplet, it may happen that you
+have more than one cell. The amount of RNA
+goes larger and maybe you have larger
+number of reads. We want to identify
+those ones as possible, problematic cells, and
+we want to discard them. Also mitochondrial it's a very
+important quality measure in terms of quality. Because it may be associated as cells that has no much viability and the amount of mRNA
+it basically what is left from those cells
+that are being destroyed, or are dying, etc. Those measures also can be very specific for
+different cell types. It's not the same amount of
+mitochondria that you may expect within a muscle cell, that the number of reads of mitochondrial
+person that I am we expect in other cells
+with less amount of mitochondria within them. Filters will be a bit of hope. Let's filter for the doublets. We want to have,
+based on the genes, less than 2,000, based on the mitochondria,
+less than 5%. We filter them and then we
+see that after those filters, we get another type of distributions and then it applies to the ones
+that we have applied. Fantastic. Now we are at this stage where we
+think this is the data, or this is the cells
+that they can work with, is good in quality, enough number of reads. Even the number of
+genes expressed, not too many, and mitochondria
+seems to be fine. Let's work about the
+preprocessing pipeline. In the preprocessing pipeline, one of the first steps,
+it's going to say, well, let's see how many
+reads you have per cell. Because as we were
+saying before, the reads may be different
+per different cells and these makes the cell without any normalization not
+to be compatible. Therefore, we may want
+to make them compatible. In this case, we can think about number of reads
+within every cell, number of reads per gene in relation to if you have
+a total of 10,000 reads. This is what we are
+doing here and you can see that now
+the library sizes, now that we have
+normalized this, will be around 10,000. This is given on
+the rounding error. Now we have made them a bit more compatible and we keep working. We also observe that the steel, for most of the genes, the level of expression is
+expected to be very low. This is fine, we have
+made the decision of put the total number of reads within a given cell to be 10,000, to make all the
+cells comparable. But then we have some genes
+that has higher level of expression and
+some other gene that has lower level of expression. The ranges are so large. Therefore, in order to
+make them comparable, we may want to log
+transform the data. If we log transform the data, we can see that now
+the values seems to be a bit more comparable. The next step that
+we may want to do is to identify the genes with
+the highest variation. Why? Because we have around 1,000 genes
+expressed per cell. The total number of
+genes is not that many, but then we want to
+work with the ones that has higher impact into
+the cell classification, cell subtypes, into any
+biological system of interest. For that, we will
+be looking into the high variable genes. To do that, we can first investigate the expression of the genes versus the
+dispersion of the genes. You can see what are
+the genes that seems to have enough level
+of expression with enough level of viability. The percentage of the
+highly variable genes, this is a definition
+that we make using this one, is around 10%. We are going to store
+them, and the thing is, we are going to keep the
+original data within this part of the original data structure. Row will be the original
+data and now we are going to move the most
+variable gene dataset into the original data. We are going to to
+work with 1,570. The next step, it's scaling. We want to make sure that
+everything is compatible. Then if you want to see the expression
+after the scaling, you have this as an example. Fantastic. Now, after
+all these processing, filtering cells,
+filtering genes, taking the most variables, you may want to save the data and to keep it available for the next time
+that you work with it. Now we have three step that you have pre-process
+the data and we are ready to go into the next steps like cell
+type identification. As always, get
+comfortable with this. The code of this session was
+prepared by [inaudible]. I minorly modified it. I highly recommend you to look into that and then in
+the next exercise.

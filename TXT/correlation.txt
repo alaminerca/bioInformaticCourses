@@ -1,0 +1,137 @@
+In the current session, we are going to discuss
+correlation analysis. Firstly, correlation
+analysis investigates the possible association between
+two numerical variables. But quantifying and assessing the statistical
+significance between two variables usually comes from a previous
+explorative data analysis. We're going to work
+with an example, and we're going to
+think that this example is coming from explorative
+data analysis. Let us go over the example
+coming from dataset 1 and the possible relation between the LDL levels and
+the hours of the sun. Before we go into
+analyzing these, it also show the coding just in case anyone
+is interested, as we were doing from
+the previous lesson. If we look into the data or our graphical representation
+of your data, what we are observing is those
+variables may be related. We may think there is a positive correlation
+between them. By positive correlation, we mean that as soon as
+the LDL increases, the levels of the hours of
+sun are also being increased. It does not necessarily mean a causality ways relation but that we just observe
+a numerical connection, and this is very important
+to keep in mind. Now, we will like to quantify
+the levels of association, and of course, its
+statistical significance. To this end, we compute
+a Pearson correlation. Now, how do we do that in hour? We use the following
+function, cor.test. But that function has several options as we
+identify them here. If we want to know more
+about those options, what we need to do is
+actually?cor.test, and go for it. We use the question mark sign to read in detail about them, and after this session, I highly recommend doing that because some concepts will become more clear and
+more evident to you. Let's go back to the question about quantifying the relation. We compute the
+Pearson correlation, and this is what we obtain. This is the cor.test function, apply for variable of
+the sun and for the LDL, and those are the results, and we can observe
+that the last value is the correlation. A value that goes from
+minus one to one. Fine, but how is
+this value computed? What is the meaning
+of this p-value? How can we make sense of
+this amount of information? This is what we are
+going to go a bit deeper right now in
+the following minutes. First of all, before the
+Pearson correlation, we can think about a measure that if two variables tend to increase or
+decrease together, we are able to quantify them. This is what we want. One example for doing that is to compute the covariance.
+What is the covariance? This is the covariance, and
+this is how it is defined. But let's think
+about the intuition. Every data point is composed of a value of x
+and a value of y. Then we are going to compute for each
+point the distance of x to its mean and
+the distance of y to its mean, and
+multiply them. A positive multiplication
+means that, well, if you have over the mean for LDL and over the mean for
+the hours of the sun, that means that you
+have a positive value, positive by positive
+is positive. Lower values and the mean
+in LDL in our example, are associated with lower values than the mean of the hours
+of the sun in our example. Multiplying a value minus
+the mean is negative, a value minus the
+mean is negative, negative multiplied by
+negative is positive. Again, if we aggregate all those computations for all the data points
+in our example, we obtain a value
+which in our case is 10.44, which is a positive. It tells us that if
+there is any relation, it seems to be a
+positive association. One increases, the
+other one increases. However, beyond positive
+or negative, that value, it's hard to interpret
+because the range of the covariance goes from minus
+infinity to plus infinity. This is very important. If we are going to change
+the ranges of the values, for instance, if we
+multiply by 100, the values of the LDL, the covariance,
+it's also modified. The relation could
+not change it, but the final value
+is actually modified. We may want a value that is not that sensitive
+to those ranges. A Pearson correlation is doing that by dividing
+the covariance with the multiplication of
+both a standard deviation of x and y and as a result, what we get is a value
+that goes from minus 1-1. Now we are able to take a
+look into our analysis. We obtained an estimated
+correlation of close to 0.4 from a range of minus 1-1. Seems to be relevant. We also obtain a p-value. Now remember, the intuitive
+definition of the p-value is the probability of observing
+such Pearson correlation, such value if the variables
+were not associated. The p-value is very small so we reject the idea that
+those variables are not associated and we
+will be working under the assumption that
+they are associated. This is the value
+of this p-value. Now, the p-value, it's derived from
+a statistics that is computed as follows. This statistic is
+working because we assume that the
+distribution of x and y are Gaussian, are
+normally distributed. These are many details
+within one slide. What we should keep in mind is that correlation
+goes from minus 1-1. We can assess the
+statistical significance using the p-value, but we also need to ensure that certain
+assumptions are fulfilled. Let us dig a bit more into that. Let's see what
+happens if we compute the Pearson correlation on
+different scenarios like here. You see, the first
+row is quite clear. We see different values of positive and
+negative correlation and even no correlation
+in the middle. The second row is also clear, except that for the
+value in the medium, where for one of the variables
+there is a single value and therefore is not
+possible to compute for the y-variable, the
+standard deviation. While it is possible is Slido, but then it's not possible to estimate the Pearson
+correlation. But for the third row, it's showing us cases where relations are
+respected but they are definitely not linear and Pearson correlation
+cannot capture them. That's review, a
+simpler example. In this figure, we are going
+to show three panels and every panel we are analyzing two variables that are related. The first one is
+the linear case, the one that we have been
+addressing until now. But the second one, there is a relation, but it's not linear
+as we can observe. However, it's monotonous. What it means is that if
+the value of x increases, then the value of
+y also increases, not in a linear manner, but they are related. Then we have the third example where there is a relationship. This definitely not monotonous. This is one of the limitations of the
+Pearson correlation, it can only work in
+the linear case. A second consideration
+important in the Pearson correlation is
+how it works with outliers. In the following figure, we can think there is
+a perfect relation if we don't consider
+the outlier. You can see the
+correlation is computed as one, Pearson correlation. But as soon as we
+include the outlier, then Pearson correlation
+drops to 0.85. In the second example is
+the reverse scenario. If we do not include
+the outlier, there is no relation because the values are fixed,
+are always 12. But as soon as we
+include the outlier, then we are observing a
+significant association. That means that
+Pearson correlation is very sensitive to outliers. If we can see those
+three situations, relations that are
+monotonous but not linear, data with outliers
+and non-Gaussianity. What can we do? We have an alternative. The alternative is, instead
+of using the original values, we can use the ranks. Basically ranks is ordering the values assigning positions. That is what Spearman
+correlation is doing. If this is the original
+Pearson correlation, Spearman correlation
+is basically computing Pearson correlation
+using the ranking instead of the original values. We have alternatives. We have to be very
+careful with our data to investigate which assumptions are fulfilled, which are not. Can we use Pearson correlations? Can we not? Should we
+use a Spearman instead? Now what we're going
+to do is to explore these a bit farther,
+Pearson and Spearman, few more things in the coding
+session. Let's go for it.

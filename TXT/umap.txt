@@ -1,0 +1,34 @@
+We are almost at the
+point to identify cell subtypes within our
+single-cell RNA-seq data. But before proceeding, let's discuss a particular
+technique that is extensively used
+in the analysis of this type of data,
+multidimensional scaling. In our previous video lectures, we have represented our data as a table of numerical values. But it could be
+more convenient to have a better graphical
+representation of this data. For instance, a
+two-dimensional scatter plot where each point represents one sample and the distance between the points reflects their similarity. You may be tempted to say, we do have such a
+representation, is the principal
+component analysis. Unfortunately, principal
+component analysis is not ideal for visualizing
+single-cell RNA-seq data. PCA is limited to a linear transformation of a data rotation that we
+were discussing before. This is often not enough to uncover hidden
+structures and patterns. Class of techniques that has
+become more and more popular for representing
+single-cell RNA-seq data is multidimensional scaling. Within this class, UMAP is the facto visualization
+standard for single-cell data. The operation of multi-dimensional scaling
+techniques is in principle, very simple and based
+on two main steps. In the first step, the
+similarity between each pair of cells is
+measured over all genes. The exact way to measure these distances changes depending
+on the specific method. In the second step, a scatter plot is created
+by placing one dot for each cell and then
+spacing the dots according to the distance
+computed in the first step. Unfortunately, sometimes
+it's not possible to accommodate distances
+computed on 20,000 or more dimensions; it's only two
+dimensions and which only approximate
+solutions are possible. Here is a UMAP that
+we can produce using the T-cell data
+from our case study. Let's talk more about
+UMAPs; what it means. Let's create our
+first UMAP plot. In the following coding lecture.

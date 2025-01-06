@@ -1,0 +1,122 @@
+Welcome to a new video coding lecture. In this video calling lecture
+we're going to follow or continue the analysis that we
+had started on bulk irony sync. If you remember from our previous video
+coding lecture, we have an overview. We did the loading of the data, checking
+possible transformations of the data, investigating library size,
+in the first video coding lecture. Now we are going to talk about data
+visualization and finally in the next one we will talk about the differential
+expression analysis between Th0 and Th2. And there is an exercise that you will
+be able to conduct by yourselves. Highly recommended, if you have questions, go back to the previous
+video coding lecture. But also check the video lectures
+where you have the foundations or the basics of introduction to the bulk and also to the introductions of what is
+the type of data that we are working with. Just for you to have a brief
+reminder we load the data. We are using this in to package,
+we account for different aspects. And very importantly we are not
+using the entire data set, we are using 5 days stimulation time,
+two conditions Th0 versus Th2. And we are only working
+with cell CD4 memory. So we got the data, we modify it. Now we are going to help us
+understanding about more this data using principal component analysis. First of all two things,
+one is do you remember I was running all the code before
+showing you this analysis. This code is for you available, so
+I would recommend that you open the code next to you when you are looking into
+this video, run the code by yourselves. If you have something that is not clear,
+post the video check, read the comments here. Feel comfortable with what I'm telling and
+do not hesitate into exploring more question mark to
+check how everything is working. Imagine you're seeing this function,
+question mark, this function will tell
+you a lot of information. Okay, so let's start. The first thing is what is
+the principal component analysis? If you remember for
+the video lecture, it's basically, in our data set we have more than
+26,000 variables, right genes. It's impossible to visualize because we
+visualize in towards three dimensions. So what we are going to try to do
+is to transform the coordinates. So the first coordinate explains
+most of the variability. Then we will identify a second component
+which is orthogonal to the first one, that explains as much as possible and
+so on. We use this function,
+principal component, we have the data, we scale it and
+then we run the principal component. The first thing that we want to do when
+we run the principal component for doing this type of visualization, we
+are going to use the facto extra package. It's how much variability is explained
+by each one of the coordinates, and this is what we have
+in this scree plot. The first component explains
+a bit more than 30%, the second one 23%,
+the third one 12% and so on. You can see that once we arrived
+to the ninth component there is very little added value in terms
+of more variability explain. Another comment here is that
+with just two components, we are explaining almost 55% of
+the the data, extremely important. Once we know, okay let's take
+these two first components and plot the first component
+in a scatter plot. So we have the dimension 1,
+dimension 2, so dimensions for every one of the samples. We have the profiles for the first
+dimension on the second dimension. So every dog here, eats a sample. So we observe like three groups,
+fantastic, and we have a sample names. What would be even more useful
+is if we super pose within this plot information about
+the sequencing batches or the Th0 versus Th2,
+things like that, so let's do it. We are going to use another
+function called plotPCA, available within the DESeq2 umbrella. And we are going to plot
+the sequencing batch. We go here, very interesting,
+we have two groups we plot. But before we go very deep into this
+we should be thinking seriously and be critical with what we are observing. This plot should be exactly the same
+one that we are observing here. But we start seeing bit of a difference,
+right? Those two samples and those two,
+which seems to be a bit not extremely far, but a bit far here,
+they look very close here. Their ranges goes from -100 to 100 for the first dimension here
+it goes from -20 to 20. And even more importantly,
+first component explains 50%, cycle component 30% where we
+have very different values here. Okay, why is that? You should be critical and
+sometimes you find these discrepancies, don't overlook them, investigate why. You will have a learning experience and you will make sure that what
+you're doing is correct. Then, what I did in this case was to
+investigate further this function plotPCA. So if I want to investigate further
+this function I ran ?plotPCA, I get all the information here. You can see these me two options,
+I go for the DESeq2 library and then I get all this information. And if I read carefully this information, I come here and
+I have the source code can be found here. Okay, so even can look into the code,
+why not? So I try to get the method,
+this is what I'm doing here and I got all this code, fantastic. So now for my sake, I'm going to
+try to run this code by itself. Because running a function is
+basically if you know the values that you're providing to the function,
+the variables, then you can run what it is inside, and
+this is exactly what I'm doing here. The values that they provide the function
+is object, intgroup, ntop, returnData. Object is this one,
+intgroup is the sequencing_batch, ntop is the number of things I
+want to consider all of them, and returnData is FALSE
+because I want the plot. Then I start running step by step, and then the original code
+show something like this. Come here, you can see the original code, principal component,
+I put the data, fantastic. This is the moment where you
+should be checking yourself. We have run principal component before,
+let's go to how we run it. We run it before and this is the code but we added something like scale is TRUE,
+what does it mean scale is TRUE? Scale is TRUE is within every gene we
+are going to subtract the mean and divide by the standard deviation. There are different ways of scaling but
+this is one of them, and why is this important? Well, it's a decision to take. But think about biologically speaking, housekeeping genes are very highly
+expressed when you compared to for instance transcription factors or
+most of the transcription factors. But maybe the variability in housekeeping
+genes is not that important for what we are looking, but changes in those values are going to
+affect a lot our principal component. While changes in the transcription
+factors may be a bit harder to see. So if the scale of the values
+mattered in this transformation, maybe we should be scaling them. So it's actually the variability or
+the ranges that that matters, how they modify for
+the different conditions etc. And if you have this in
+the intuition well we can actually modify the code and
+making sure that it's a scale. We run it and
+we get exactly similarly to what we did before, 32% and 23%. So this is what we got in
+the original PCA plot that we did. Which one is correct? Well, both of them are correct but
+there was a decision about the scaling that we took when we
+computed the principal component and it's not being taken when we
+are doing the plotPCA function. So be careful with those aspects,
+check details, details matter a lot. Now, once we have looked into that of
+course we are plotting information about the sequencing batch one or two. And what we can see here is, well,
+for the three groups of cells that we are finding there are sequencing
+batches in all of them. So there is no obvious bias
+to the sequencing batch. When we superpose information
+of the Th0 on Th2, we can see that well while they
+may be differences in Th0 and Th2, they do not look to be global. In the sense that samples are not grouped
+based on this biological characterization. And you can see that Th2 and
+Th0 are not super posing to the same components as
+the sequencing batch, which accounts for
+a proper experimental design, right? Otherwise, it will be confounded
+between the sequencing batch and our biological question Th0 and Th2. You can do more analysis,
+investigate further, check other variables if
+you're interested, go for it, we highly recommend it. This is why these
+visualization plots are about. So with that I will stop here,
+go for it, check, double check and then go for
+the next video lecture. And then after that we will look into
+the differential expression analysis.

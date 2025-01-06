@@ -1,0 +1,52 @@
+Principal component
+analysis, or PCA, is one of the first analysis performed when doing
+RNA-seq analysis. It is a useful tool for
+exploring your data, and for possibly
+identifying patterns. In order to understand it, let us use a fictitious dataset. Here we have a simulated in expression dataset 100 subjects, 50 lymphoblastic
+leukemia patients, and 50 healthy control. Our research question is, can we separate the
+two populations on the basis of the expression
+of these three genes. Before proceeding, there
+is one important issue. RNA-seq data is not normally distributed and many
+analysis methods, including PCA, assume
+normality or Gaussianity. In order to make the data
+closer to normality, we can apply a variant
+stabilization transformation, for example the log function. More sophisticated methods
+exist in the literature, but this will do
+for our example. Now that we have
+pre-processed the data, we can proceed with analysis. Since we have only
+three measurements, we can first try
+to plot the data so to visually explore any separation between
+the two groups. Unfortunately, our
+first attempts, it's not showing any
+such separation. Intuitively we may want to
+rotate our point of view so that we find a better angle for which to observe our data. So let's do that. Now that we have changed
+our point of view, we can see that we can
+separate leukemia patients and healthy controls on the basis
+of their expression levels. How did we achieve this? To put it simply,
+we found a rotation that spreads the points far away from each other
+as much as possible, rather than keeping them clumped together and hidden
+from each other. However, we could do that graphically because we have
+only three genes to inspect. What happens when
+we have four genes? What happens when we have 20,000 or more
+expression levels? When we cannot
+visualize the data, we must call open mathematics. First, we should recall the rotating data points in
+a space simply corresponds to multiply the original values for a so-called rotation matrix. In the case of our example, the rotated points
+can be obtained from the original ones by applying
+the rotating matrix shown. The question of
+course, is how to determine the correct
+rotation matrix. The criterion that PCA
+uses is to maximize the variance explained by
+each one of the new axis. In plain words, this corresponds to spread
+the data points as much as possible as we did
+with our minor rotation. Mathematically, the variance of the principal component analysis can be written as the
+formula shown here. We must also constrain w so that the transpose w equals zero to ensure this is a valid
+non-rotation matrix. How to solve this type
+of maximization problem is well-known and without getting too much into the
+mathematical details, it is related to identify the eigenvectors and eigenvalues of the gene expression matrix. Once the optimization
+problem is solved, this will be the final
+PCA solution we will get on our small
+fictitious example. Notice that we are also able to compute the variance
+explained by each component, which marks their
+possible importance in explaining of the
+patterns of the data. In the next coding lesson, we will learn how to apply principle component analysis
+on bulk RNA-seg data.

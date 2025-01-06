@@ -1,0 +1,55 @@
+in the previous coding lecture,
+we were exploring a case study of a linear model where for dataset one,
+we were comparing weight and LDL. What we were trying to do is to
+predict the value of weight. Using LDL and using a linear
+model that needs an intercept and a value associated to
+the values of the LDL. So we conducted the linear model. We observed that the model seems
+to be statistically significant. That means there is value in this model. The intercept and
+the value associated with the L. D.
+L. Are both also statistically significant. So we work under the assumption
+that there are different than zero. And also we were observing
+that this statistical model explains a lot of
+the variance of the data. Does it mean that the linear
+model is correct? Well, we cannot get assure that we
+still need to investigate the different assumptions that we also mentioned
+in the previous comment lecture, We're going to investigate a few
+of them in this current one. So let's go for evaluating a linear model. The first thing is to investigate
+the result of a linear model visually. What do I mean by that? What do I mean? It's basically plotting
+the LDL versus the weight. And all the different points are the data
+points that we used to generate the linear model. And this is the line that
+these the expected values. If our model will be true. We observed that the line is not
+exactly crossing to the points, but it's crossing close by. So this is why all these values. We are observing that a lot
+of the variance is explained. Perfect good point. But let's evaluate more things. The first thing is about the residuals. What is a receivable for
+every value of the L D. L. We get a value of the weight,
+right, but we also have a predicted value of the weight and
+this difference between the real value and the predicted value are the receivables. And for the linear model to
+be statistically correct, we are working under the assumption
+that those residuals are behaving as a Goshen as
+a normal distributed data. So we need to investigate this
+distribution of the of the residuals. Let's compute the mean,
+let's compute the hissed a gram. We are expecting the mean
+to be around zero, which as we were just computing it,
+it's very close to zero. But then the received was we expect
+them to be caution distributed normal distribution,
+which dozens to be perfect. So, as we were doing before with
+assumptions for the for the correlation, we are going to investigate a bit
+further using the Q Q plot. And if you remember about the plot, we are
+comparing the theoretical Kwan tiles of the Gaussian distribution to the quintiles
+that we are observing in our data after, After we subtract the mean and
+the standard deviation. That's why it's standardized receivables. We observe that this line Will tell
+us that if all the points will be over this line, we will have
+a perfect out of distribution. This is not the case. And we observed that for small values we are really far from
+the from the Gaussian distribution. So that would be a question mark for
+our linear model. The 2nd 1 is to compare the fitted
+value versus the receivables. What do I mean by that? Here we have defeated values
+which means the values that we are observing over the line. Right. This is the predicted values,
+defeated values and the received walls are the error from what we predicted
+to the to the to the real value. We can observe that those values doesn't
+seem to be randomly distributed for this model to be correct or more correct. We will be expecting the data to be
+randomly distributed around zero. However, what we see is that for lower values defeated values
+that residuals are positive. For larger values of the fitted values
+that rosado seems to be positive but for the ones in the middle are negative
+and that's that's not look as random. So what does it means? Well, maybe it's not clear
+to fully react the model but it's clear that we may have some
+biases and something to consider. And for any linear model that we do, we
+will need to be addressing those concepts. We just we just just described

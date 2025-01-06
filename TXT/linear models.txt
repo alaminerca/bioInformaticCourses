@@ -1,0 +1,89 @@
+In the previous lesson,
+we discussed correlation. Pearson correlation, and
+a Spearman correlation as tools to quantify
+relations between variables. However, quantifying
+associations does not allow us to estimate
+value Y from value X. This is what we do
+in linear modeling. While our correlation analysis provides information
+on the strength and direction of the
+linear relationship between two variables, a simple linear
+regression analysis estimates parameters in a linear equation that
+can be used to predict the values of one variable
+based on the other. We will have a predictor
+X and a response Y, and let us imagine both variables share a
+linear relationship. Then we will be able
+to predict Y from X, as long as we identify the coefficients of
+the linear model. This is the equation
+of the model. This is the way that
+we can think about how to infer those parameters. You can also see
+that we have added the error term that
+accounts for the difference between the real Y values and the predicted values
+that are from the model once the
+parameters are estimated. If this intuition is clear
+for the linear model, now the question is, how do we compute it in R? We use the following
+function element. We have a function, and we write the formula. The grammar is very simple. We are using dataset 1, which is a DataFrame, and from that DataFrame, we are using the LDL column as a predictor and the weight
+column as a response. We will run the code, and we aim to investigate this and we
+will see the results. You can observe there is
+plenty of information here. We are going to
+review parts of it. But you are
+encouraged to go into the help function to know
+more after the lesson. Let's go a bit more into detail, and also remember you have this tool to look for
+further documentation. We have this information. We have a model that
+we want to infer. We go to the
+intercept estimates, Beta_1 and the slope
+estimate, Beta_2, and we also quantify a
+value name R-squared. R-squared, or the coefficient
+of determination measures how good the fitted
+regression represents a data. R^2, R-squared is defined as the percentage of
+variation in the response, that we are able to explain. It ranges from 0-1. Zero means we are not able to explain any part
+of the variation, one means all variation in
+the response is explained. The higher the
+R-square, the better. We also quantify a p-value. The null hypothesis is that there is no
+valid linear model. There is no valid relations between the experimental
+linear model. But the p-value that we
+are observing is that we can reject the
+null hypothesis, and we assume there is a linear relation
+explained through this model, fantastic. Now, we have a
+linear model and we can estimate Y derived from X. But beyond these R-square, beyond the p-value, there is additional quality checks
+that we should conduct. There are several,
+and we are going to discuss two of them. For the first one, let's take a look at the data
+and the linear model. We can observe
+that the points on the line do not align perfectly. There is a distance between
+the predicted points, the line, and the actual
+data, the points. This distance is what
+we name the residuals. We are going to investigate the quality of the
+data through them. You can see in this case, that in the extremes, the original values of the weight are larger
+than the estimated ones. While in the middle,
+is the opposite. Let us plot the residuals
+versus the fitted values. We can observe them
+more in detail. It tells us that the arrows are not independent
+of the predictor, which is considered a bad
+because we expect no relation. Furthermore, we expect the
+residuals to be random. Specifically, we expect
+the residuals to follow a Gaussian distribution,
+a normal distribution. We can investigate
+that assumption if the residuals are Gaussian
+by generating a Q-Q plot. The Q-Q plot compares the
+theoretical quantiles of a Gaussian distribution with the standardized residuals
+that we are observing. For the residuals to be
+normally distributed, this should be a perfect line. Doesn't look like that. There are parts of it
+that looks like a line, parts of it that not. Based on these observations
+and the previous observation, let us make a final
+summary about our model. The model fits the data well. High amount of
+variance is explained, and it is statistically
+significant. Fantastic. However,
+the residuals are not Gaussian distributed or doesn't looks like
+Gaussian distributed, and we are underestimating the response of a extreme
+predictor values. Now, the question
+is very simple. Should we use the model or not? To answer that I will use the very very famous
+sentence from George EP Box, "All models are wrong, but some are useful." In my mind, the model that we generated looks like
+as a useful model. But I think it's worth
+investigating further about the quality of the model and
+check in on the residuals. A final word before we move into the
+electric coding session, is that you can formulate very complex linear models
+using the lm function. The one we did was a
+very small example. But see additional
+examples here. You can go as
+complex as you want. Once you take a
+good look at them, then let us move into
+the coding session.

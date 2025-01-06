@@ -1,0 +1,166 @@
+In the last lectures, we have learned how to analyze
+single cell RNA data using Python and the scanpy
+and ON Data packages. Now, we will see how to do the same thing using R
+and the Seurat package. The first step we will load the Seurat package,
+tidyverse package, define the path to
+our input data, the count matrix as well
+as the metadata table. Then use read.csv to load the count matrix
+and the metadata. The first step we will make
+sure that the surnames are matching between the
+table and the count metrics. Then use the constructor method to create a Seurat object. That constructor method
+takes several parameters. Most importantly,
+our count matrix has to take the
+correct format here. we have to make sure that the
+features are stored along the rows and the samples or cells are stored
+along the columns. Then we can provide a
+name for the project, as well as we have to specify
+the name of the essay. Seurat can process
+different types of data, for example also, seek data. We have to choose the SNMP corresponding to the type
+of data that we're using. lastly, we provide
+the metadata table. Now we can execute this constructor method and then have a look at the
+result and indeed, we have created our first
+Seurat object here. The Seurat object holds the information that we've provided in the constructor
+in different places. Here are the essays
+and here it's a Meta data which holds a
+set of individual columns. This begs the question how to access the different
+aspects of the data set. Again. For this, there are several accessor
+methods prepared, for example the
+good essay method, which allows us to access
+the different assays. We have only one essay in this data set which is
+RNA, the count matrix. We can execute it and directly
+access our count matrix. Now we see that we have
+loaded about 21,000 individual genes over
+a total of 424 cells. We can access directly the metadata table
+in this way can have a look at which metadata types
+are stored in our object. These other
+individual columns of our metadata table. Here we e.g. have a column called donor ID, holding the identity
+of the donor, from which the
+individual cells were obtained using the table, function and accessing
+directly the column donor with dollar sign allows us to make it count
+table and see how many cells originate
+from which donor. Another central information
+to the analysis of single-cell data is the identity that individual sites
+have been assigned to. This usually originates
+from clustering methods and can then later be extended
+to cell type identities. Here we initialize our
+cell identities with an empty string to
+make sure that we start from a clean slate. We can also access subsets of our Seurat object using the names of the
+features in this way. In this way we can create a view on the original
+Seurat object which still holds the total number
+of 224 cells or samples, but now only holds one feature, which is the gene that
+we have requested here by the name TCL1A. This now brings us to the next step of the
+analysis pipeline, which is the quality control. One common thing
+in quality control is to fit a cells
+of low quality. Which means we have
+to measure quality, assess the quality somehow. One common thing is to
+calculate the fraction of reads per cell that originate
+from mitochondria genes. We can use the
+percentage feature set function to achieve this. This function takes
+our Seurat object, as well as a pattern which specifies the general
+and name pattern of all mitochondrial gene
+names in our gene annotation. In this case, all
+mitochondrial genes start with a capital M and T. The resulting percentages of mitochondria reads per
+cell are then stored in the Metadata table under the
+column name percent empty. We can then go on and plot the distributions of
+different columns of our metadata table. Using for example, the violin plot function, we'll end plot. This function again
+takes us Seurat objects, as well as the names of the
+features which needs to correspond to the column
+names in our Metadata table. Here we select the
+percent empty value that we have just
+calculated and in addition, the Seurat constructor
+automatically calculates several
+measures for example, the nCount RNA, which measures the total number
+of reads per cell. As well as the nFeature RNA, which measures the number of genes which were
+detected per cell. If we execute this function, we will obtain a plot that
+looks something like this. These are violent plots which
+gives us not only the shape of the different distributions
+of our quality measures. Now we can decide
+what cutoffs we want to use to filter out low quality
+cells from our data set. Before filtering, our data
+set contains 424 cells. Now let's say we want to apply a threshold filter
+and filter out all cells which have more than five percent
+mitochondria reads. We can use the subset
+function with this and combine different criteria
+for filtering in this way. We can also then add another
+criterion, for example, we want to filter
+out all cells which have less detected
+genes than 200, which would filter out probably empty
+droplets in this case. We can also add
+another criterion, filtering out all cells which appear to have
+more than 6,000 detected genes or features which could represent
+likely doublets. Let's execute the
+subset function and then have another look. Now our Seurat object contains
+not 424 cells anymore, but 370 have survived
+the filtering process. Now we can start with a pre
+processing of our data. The first step is to
+execute the normalization, which internally
+execute several steps, including a scaling step
+and the lock normalization. The next step then is to find variable features which
+detects genes which show the highest variability across the cells of the
+entire data set. We can have a look at how
+these variable features or the most variable genes look like using the access or
+function variable features. This way we can see the top 10 genes that
+are most variable. Here we see that the IL9 gene appears to be the most
+variable across all cells. Another more convenient
+way of visualizing is to use the function
+variable feature plot, which provides us with a scatter plot of the
+variable features. Here we see on the x-axis the average expression
+of the individual genes. On the y axis we see
+the standard variance. Again, our gene, IL9 comes out as the most variable feature across all cells
+in our data set. The next step is
+to scale the data, which effectively centers
+the gene expression profiles around zero across all cells. It makes sure that the
+variance is also equal. Now, we can run a PCA on
+the scale count matrix. PCA is very useful to get a first impression on how
+the data set looks like. We can for example. visualize the loadings of the individual
+components of the P CA. Here we see a plot of
+the component one and two the loading of the individual genes
+along these components. We see that component one has highest loaded feature,
+the gene HMGB1. Another common way
+to use a PCA is to plot a low-dimensional
+representation of our data set using the component 1
+against component 2 for example and then
+see whether it's heads are clustering in
+a particular pattern. Another good way to
+get an idea about the dimensionality
+of the data set is to use a ElbowPlot, which effectively
+visualizes the importance of the individual components
+starting with component 1. On the y-axis, we show the standardized
+deviation that is stored or represented as
+component 1 of our PCA. Following components
+are then falling off in the amount of
+standardized deviation that they're representing. In addition to the linear dimensionality
+reduction method PCA, we can now run the non-linear alternatives
+UMAP and choose name. The obtained low-dimensional
+representations can then be plotted side by side using the DimPlot
+plot function. Now, we have to specify which reduction is to
+be used in the plot. This brings us to the analysis
+part of the pipeline. We will obtain a clustering of ourselves using the
+Louvain algorithm. This can be achieved
+in two steps. First, we calculate the
+nearest neighbor graph across cells and then execute the Louvain algorithm using
+the fine clusters method. Importantly, the algorithm takes a resolution parameter
+which modifies the number of obtained
+clusters and needs to be tuned specifically to
+the analyzed data set. We can then visualize
+the obtained clustering using the DimPlot method and any of the low
+dimensional representations that we have obtained above PCA, UMAP, or choose name. Here we will use the map. We can now see that
+the cells have been clustered into six
+individual clusters. The last step we will look
+for marker genes that show differential expression
+between a cluster and the respective
+rest of the data set. This can be done conveniently using the find all
+markers function. This function also takes several cutoff parameters that the marker genes need to
+exhibit, for example, a minimum look forward threshold and a minimum fraction of cells that the gene
+has to be detected in. Furthermore, we can choose from several
+statistical tests that are used to assess the
+significance of the marker gene. The resulting table contains
+the name of the marker gene, as well as the p-value, the average log full change, the adjusted p-value, the cluster membership, and the fraction of cells in which
+the gene has been detected. Let's count how many marker
+genes we find per cluster. Importantly, we want to only
+look for marker genes which have minimum adjusted
+p-value of lower than 0.1, an absolute average log full
+change of larger than one. We can then extract the top ten upregulated and
+downregulated marker genes and visualize them as heat map. These analyses represent only a small fraction
+of typical steps, but they're a very
+good starting point for further research.

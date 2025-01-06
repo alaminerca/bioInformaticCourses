@@ -1,0 +1,84 @@
+In this video lecture, we described what is
+a linear model. Also, we investigated
+how to evaluate them and how even to program
+them and think about them. Now, we're going to explore
+these into a case study. We're going to investigate and quantify the relation
+between weight and the LDL concentration in
+one of the datasets that we have been using in
+previous call in lectures. First of all, we
+will need to learn about the general format. LM function, linear
+model function, which is part of
+a built-in in R, is the function that
+we are going to use. We can use linear models
+in different ways. We're going to use this syntax. The syntax is basically, we have a data and
+we have a variable that we call
+predictor and we have a variable that
+we call response. Basically, we want
+to investigate the possible linear
+relationship that allows us to predict a response based
+on the predicted values, using a linear relationship. For working with this
+type of linear models, there is certain assumptions
+that we need to consider. For instance, Gaussianity
+of the residuals, that means that if
+we are trying to fit a line to our two values, we will be discovering that not all the values that we are predicting are perfect. This difference between
+the real values and the predicted values are
+what we call the residuals. We have expectations about
+the residuals to be randomly distributed to follow a
+Gaussian distribution. We have many other
+assumptions that partly of them we were discussing
+into the video lecture. We will go back into them a bit later when we evaluate
+a linear model. Let's work with an example. We have the linear model. We're going to use again,
+these tidyverse library. Then the first step is
+going to read one dataset. Let's go to Dataset 1 we
+have been using it before. We can explore it here. We have different
+numerical values and one categorical value. Fantastic. Now, we are
+going to try to fit a linear model where it's the weight versus
+LDL linear model. We are going to try to predict weight based on the
+value of the LDL. We run this. Fantastic. We have this
+variable right now into our environment that keeps all the information
+of the linear model. But of course, we want to
+know more about what we're observing here. We
+have the summary. The summary is telling us, this is basically the model
+that you have been using. Those are the residuals
+that you are observing. Residuals remember
+the difference between the expected values, derived from our linear
+modeling and the real values. Then we have coefficients. In a linear model, we will have the intercept, see the video
+lecture, and the LDL. Basically if this linear
+model will be perfect, that means that for
+each value of the LDL, the weight will increase
+in almost two units. Then we have different values to keep in mind and
+to investigate. One is the p-value
+of the linear model, which means that is basically the null
+hypothesis is no relation, the linear model has no meaning, and we may consider to
+reject this null hypothesis. We may think that is some
+value in this linear model. Then we have other p-values about the intercept
+and about the LDL, the factor associated to LDL. While we're asking here
+is if this estimate, null hypothesis will be, this estimate is zero and the alternative hypothesis
+it's different than zero. With those p-values,
+we may reject the null hypothesis and consider that the estimate
+associated with the LDL, it's different than zero and
+the same for the intercept. Fantastic. Then we also have another value
+which is the R-squared. This is one of the
+most important ones. R-squared, it's basically
+the percentage of the variability that our linear
+model is able to explain. You can think of it as the ratio between explained variation
+and the total variation. In this case will be
+more than 99 percent, and R-squared is always a value that goes between zero and one. Zero means you can
+explain nothing, one is a perfect
+linear relationship. If by any chance
+you want to access the values that are from the summary and instead of
+copy and paste if you here, you can also use it keeping this information
+into new variable S, then we can access
+using the dollar all the different values
+that are stored within the S. If we want to
+look a bit more, we can also see here
+what are those are the different attributes
+and different elements are stored within this list. Is a list of 11 terms and for each one of the terms,
+we can access them. Fantastic. We have
+a linear model. We consider that the linear
+model has some value. The intercept needs to
+be different than zero. Those values also are
+important to consider. Next play, it is explaining
+a lot of variability. Can we consider that already that this is a
+good linear model? No, not yet. As we
+were saying before, there are certain assumptions that we want to investigate.

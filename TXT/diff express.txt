@@ -1,0 +1,155 @@
+Welcome to a new video coding lecture. In this one we're going
+to discuss finally, differential expression in bulk art,
+music. If you remember from
+two previous lectures, video coding lectures
+on bar currently DEseq. We started with loading the data,
+generating the DEseq6 set, transforming the data,
+checking the library sides. Also making oneself comfortable
+with the type of data, count data that we're working with. In the second lecture, once we have
+these matrix where rows are the genes, columns are the samples. And we have normalized or not our data,
+we want to explore it and using principal component analysis for
+that. If you have some questions or
+doubts about it, go and check both the video lectures and
+the coding lectures. In the last one, finally we're going
+to work with differential expression. Please remember that in this
+analysis we decided not to work with all the data types,
+sorry not to work with all the data but
+to work with a subset of the data. In this case a stimulus time,
+five days conditions Th2 and Th0, and the cell type CD4 memory. We may have different sequencing batches,
+we've different individuals, but our differential expression analysis
+is going to be between Th2 and Th0. Keep that in mind. The second thing that you want to keep
+in mind is that at the beginning I ran all the code. So all these cutting sections
+are already done and the outcomes can be observed and
+we highly recommend you to take a look. Don't lower this code and side by
+side with this video lecture coding lecture work yourself the code and
+investigate any questions. This code has been prepared by
+Robert Leamon and I have modified it. So let's go to this third lecture. For the differential expression analysis,
+we already have loaded the libraries. This is just for you to remind which
+ones we are using the DEseq, but also we are going to use two of
+them EnhanceVolcano and pheatmap. If you don't have them in your system,
+you can similarly to what we did, installing DEseq2, use biasing manor to
+install the libraries that we're missing. If you have questions go to the first part
+of this lecture where you see examples for the installation of DEseq2. The first thing that we're
+going to do is basically process our data set
+using the DEseq library. Many of those things are already computed,
+we already compute the size factors, check if you don't remember, what is that. Estimating dispersions for every gene, gene wise expression estimates mean
+dispersion relationship, etcetera. And then what we are doing is for
+every gene we are fitting a model. A generalized linear model that predicts
+expression based on the different conditions or the variables that
+we want to consider in our model. So finally we want to do
+the differential expression, and we're using these functions within
+the DEseq library and applied here. So you may think what you have the data, how do you know the question,
+how do you know? And you can see here that we
+are comparing Th2 versus Th0. Go back to write the first
+lecture video coding lecture where we were
+creating the DEseq structure. We already defined a design where
+we aim to explain the expression of ever gene using the cytokine condition,
+the Th0, Th2. We could add more of them like
+the sequencing batch individual etc. But this is something for you to investigate by yourself when you
+get deeper into this type of analysis. What is important here, design was already part
+of the DDS data set, DEseq data structure that we're using. Have in mind, we can check the classes. You can see that DDS it's a DEseq dataset
+type which is part of a package DEseq2. Okay, so now we know that when we
+are doing this differential expression, you may not have it here defined. But in our case we defined right at the
+beginning, we're comparing Th2 versus Th0. And as a result for every one of these
+number of genes, we have six samples, we are doing the differential expression,
+and and this is the results that we get. You need to get to look a bit into that. What are the important things? Lawful change, lawful change between the two conditions
+is going to be very important. The statistic that is computed in order to
+see the significance of the difference. But of course at the end probably
+the most important columns are going to be the lawful change because you have
+the effect of this between the groups. How strong is this effect and the p-value, who's going to tell us
+how significant it is. If we have a p-value like this,
+that means that under the assumption that we think there is no
+difference between the groups, this is a likely value to be observed,
+right? You need to have very low p-values. Then another one that is extremely
+important is the adjusted p-value. What do we mean by adjusted p-value? Look understanding the p-value is saying, what is the probability of observing
+our data, the data that we obtain. Under the assumption in this case of Th2
+and Th0 to be to have the same means. Fine, and we then using this
+p-value we can set a threshold. Well, if the probability of observing
+it is less than 5% then I will say well I'll reject the null hypothesis and
+I consider them to be different. Fine 5%. How many genes are we Investigating? 26,656, so by random 5% of them may give differential
+expression results even if they are not deferentially expressed. So we need to take into account
+that we're doing many tests is a multiple testing assessment. The p adjusted value, the adjusted
+p-value is going to account for that. There are different ways, here we'll be using the forces
+covering rate, we allows or tells us the percentage of false positives
+that we are going to allow in our data. Now, we'll be using the p-value,
+or we'll be using lawful change, or we'll be using the adjusted p-value. Imagine we want to investigate,
+I'll recommend to use the adjusted p-value because it takes into
+account multiple testing. And this is also for you to decide
+if you want to use the full change, in this case the absolute value of
+a full change because you may have changes statistically very significant. But the lawful change it's so little that you may think what
+is the biological value of this? Well, I'm not going into
+going in that debate, you need to take the decisions and
+you need to be aware of them. In this case, imagine we're asking okay,
+how many genes are with adjusted p-value below 0.01, and with the absolute
+of the lawful change to be more than 1? If we run this remember the Boolean
+that we did in the week one and week two, in r you can see that
+the result is a Boolean vector, and for
+every true when we summit it's a one. So we have 25 genes that if
+we use this criteria we will consider them to be
+differential expressed. Now one of the things that we want
+to do also is not only to have this table with differential express
+genes and all information, but have some kind of visualization, and
+we're going to talk about two of them. One extremely important
+is the volcano plot, you've here the volcano plot as
+an example, and you have here the results. Basically in the cooperate volcano plot,
+we're going to talk about x axis, show the local change, so
+how strong is the change? And in the y axis we're going to have the
+p-value but in order to make a p-value, the larger the more significant we're
+going to use the minus log 10 of the p-value. That means that a 10,
+it's a 0.000010 decimals of significance. We've a warning because
+we're observing it here, one of the things is we could also
+look at this, run it it here. See the plots that we get and
+also if we want to zoom we can look at them like in this case, and then we'll have lower amount
+of points overlapping. What are we looking? What we are looking is there are some
+genes that looks to be this is the threshold that we're setting for
+significant. So any gene,
+any dot over this threshold is a gene that we're considering to be
+differential express. And then we've some genes
+that are differential express up regulated,
+differential express down regulated. Sorry, those genes here
+are going to be significant, the adjusted p-values below 0.01, but you can see that the lawful
+change is not that strong. So those are the genes that
+statistically seems to be significant, but the effect is not that strong. We've another ones here where
+the local changes very large, but we don't have enough statistically
+significant to define them based on our criteria as
+being differential expressed. So at the end of the day,
+we'll be looking into the genes here and into the genes here, and
+you can have the names and sample names. You can translate into gene symbol
+etcetera to look into more biological insights. And this is an exercise that I
+highly recommend post lecture, look for those genes, say what they are. Do they make sense in
+the context of the cells of CD4-T cells also in
+the context of Th0 and Th2, it should tell you if we're
+in the right direction. So now that we have discussed these, let's go back into observing
+the other part of the lecture. The other thing that we
+can do is a heatmap. Let me show you what is a heatmap. We're going to select the genes right? That are adjusted p-values below 0.01. So we are accepting 1% of
+all discovery rate and the lawful change more than one, so we
+want to have a certain amount of effect. We select those genes which
+you can see them here, and then we're going to create a data frame,
+yes with those genes. Now what we're going to do and
+what we're going to do is basically to have this data frame
+of the notation imported here. The expression of the genes that we
+identify as differential express added or reference here. So we are going to have a heatmap,
+let me show you what is a heatmap. Heatmap is showing the genes in the rows,
+the different samples in the columns. But also we could add additional
+notation like sequencing batch, the donor ID, the cytokine condition,
+Th0, Th2, donor ID, sequencing batch. We have a lot of information in
+a very easy way to visualize it. You can see these genes if we look here, those genes are up regulated
+in Th0 not that many, probably the ones that we're
+observing in this case. We can see them here, and
+we've few more genes to be a populated in Th2 the ones
+that version here. So at the end you have different ways
+of visualize the same information. But this is complementary, and
+of course make also the exercise that if you have two plots they need
+to be current between them. It's very useful to identify
+possible errors, pitfalls, weird things when you visualize
+that it in more than one way and you make sense of everything together. And then we'll be looking into those
+genes that are up regulated and down regulated, and having a better
+biological understanding of them. So with this we'll be closing the last
+part of the bulk RNA DEseq data analysis. The next sections we'll be moving into
+single cell, and then we we'll have one section when we'll be bringing
+together single cell and bulk data. With the intention of bringing
+together r when we're doing analysis in bulk RNA DEseq and Python that we're
+using for the single cell data analysis. Hope you found it useful. Most important thing,
+again check the call by yourself. Get confident, identify you've questions, look question mark any of the functions
+that you don't see it clear, and get confident with what is
+happening in this code.

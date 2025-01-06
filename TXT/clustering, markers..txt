@@ -1,0 +1,131 @@
+Welcome to a new video lecture. In this one, we're
+going to follow the analysis of
+single-cell RNA seq data. In previous lectures, we will
+learn how to load the data, pre-process it a bit and even filter and do
+quality controls on the data working with annotated data package and
+annotated data structures. In this one, we are going
+to go to the next step, which is when we have
+populations of cells, we need to annotate them, identify the cell
+types they are, or the cell subtypes there. In this case, we are going to show you how overall this works. These exercises or
+this session has been prepared as always with
+all the Python ones, prepared by [inaudible]
+and this is David, guiding you through the
+exercises and through the code. The first step is going to be, as always, we need to
+load the packages. Import them NumPy, remember for vectors matrix
+it's a race in general, pandas DataFrame
+and it's come pi, which is prepared for
+single-cell import. The first thing is to load the data and then you can investigate certain characteristics of the package. The next thing that we're
+going to do is to start trying to [inaudible] or
+exploring a bit the data. We are going to
+compute the PCA of the data we have and
+then we're going to compute the percentage or
+the variability that this explains the variance
+that is explained by each one of the
+different components. You can see that when
+we are looking here, after the third component, it's really limited information that we are having to
+the entire dataset. If you have questions
+about whether it's a principal component analysis, check the session on that. Check the video lecture and the recording lecture
+associated to it. We did it in bike RNA but the concepts also
+apply to single cell. Even if we are
+thinking that well, beyond the 10th component
+is not that much to add, we are going to work with
+up to 30 components. We are going to
+transform and instead of working with
+thousands of genes, which we know most of them have zero for many of the
+different cells. Remember, every cell or media there was 1,000 something
+genes to be expressed. We are going to transform
+these into 30-dimensions. Then this is basically the
+data that we get when we are working with a PCA
+on 30-dimensions. The next thing that
+we're going to do is to identify a subset of cells. To identify a subset of cells, we are going to work with
+this PC with 30 components. The first 30
+component of the PC. This is a parameter
+that you could modify. Using these projection
+on this 30 dimentions, we are going to identify for every cell that
+neighboring cells. This is going to be very important because we are going to use the
+later algorithms that we'll make use of this information with the
+neighbors derived from these 30 components to
+identify groups of cells. Some of those steps may
+take certain amount of computational power so if
+something takes a bit longer, let's wait for it. What are we getting here? What we're getting here
+is the name of the cells. Why do I know this
+is a name of a cell? Usually here every cell has a barcode associated to it and the cluster for each one of the cells that we have associated to
+each one of the cells. In this case from 0-8 so a
+total of nine categories. Now that we have the cells, we have preprocess them and
+we are working with cells, we consider high-quality C, which is a dataset that we are loading the preprocessed data. Then we projected in
+30 dimensions and use such projection to work on a cluster and we have
+identify these nine clusters. The natural next step is
+to visualize the clusters. For visualization, we're
+going to use uMap. Again, you have
+another video lecture discussing uMap and
+what is useful. Basically what we are doing is projecting in two-dimensions. Over such projection, we are coloring the
+different cells, every dot here is a cell,
+using the clusters. The cluster we identify
+before we assign them colors and we are blocking them. We can see Cluster 0, Cluster 1, Cluster 2, 3, 4, 5. Then the other ones are
+maybe hard to identify here, could be because they are
+very small clusters, etc. Now, it is not only
+about identifying the different cell types or groups of cells based
+on this clustering. We may have two questions here. One of them is, how much
+do we trust our cluster? Well, you can see that there are some clusters
+that are worthy identify, that it's very hard to see, maybe are small,
+maybe are not robust. Maybe we can have 1, 2, 3, 4, 5, 6 colors that are easy
+to identify as clusters. We may have one question. How roast is this clustering? Well, there are not many, but some of the
+parameters that can help you to work with this
+laden clustering. But again, highly
+recommendable to look for additional existing tools to define the robustness
+of a cluster. Once you think, this is cluster is robust enough, I trust it, what you may want to do is to make sure or to characterize
+those clusters. One of the
+characterizations is to define which clusters
+are associated or characterized or added
+specifically highly expressed for each one
+of those cell sub-types. This is exactly what
+we are doing here. We are going to identify, for each one of the clusters, in this case the top 25 most
+differentially expressions. You should be asking, what methods are you using for the
+differential expression? Here it says t-test. Is this the right one? We could use Wilcoxon. There are different
+approaches and different methods or different considerations to
+take into account. One more step that you
+should be looking into literature and to see what the different groups are using. Currently, Wilcoxon
+non-parametric could be one good
+reference tool. But also if you have
+more than one sample, you may want to work
+with solo like data. We will include
+the reference for that in this video lecture. Identifying the markers
+it's very important, but then we need to go to
+the biological knowledge. If we have different markers, there is so much information
+associated to them. For instance, we know that naive T-cells have
+those markers. This is well-established
+in the community. If we identify those genes as markers defining
+some of the groups, this will tell us that, this is most likely
+naive T-cells. You can see, for instance, Cluster 1 specialist arrest, you have CCR7, it's a market for naive T-cells. Using these will help
+us to parameterize the different clusters
+and to give the a name. These are just some
+considerations that we are making, Cluster 0, 3, and 5 are characterized
+by high levels of those two that are highly
+recognized as naive T-cells. Perfect. Then let's put
+these names into the cells. Now instead of having so many
+clusters as we had before, we use expert knowledge to rename an even
+group by our clusters. Is this the right way? Well, this is one of the ways. Using well-established
+knowledge is very useful to identify cell types that
+we expect in our system. However, if a new user type has not been identified before, it will limit us for identifying them based on
+our data-driven approach. In many cases, when
+we're doing analysis, we have to balance the knowledge that we are
+bringing into the system, but less still have it all open for new discoveries and
+new characterizations. Single-cell has help the
+scientific community to redefine our understanding all
+the different cell types on all the organs and all
+the biological systems. With that, just keep in mind
+that with these annotations, we are also storing them within our
+annotated data object. You can see here that now it includes the Yu map, the PCA. They've been sent by
+components and also the different cell identities
+and characterization. The more you keep working, the more you're
+reaching your object, and the bigger it gets. Of course, you may
+want to save it. If you want to know
+how to save it, or you want to remember, see the code from the
+previous lecture. With this, I will finish this lecture on cell
+type identification. One of the core steps which includes
+differential expression, which will be also
+doing or you can be doing for other questions
+like disease and health, etc. Highly recommend to go
+step-by-step with the code, making sure that you
+are understanding it, and run the next exercise to make sure that you have a good understanding
+of what we're doing.
